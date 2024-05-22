@@ -1,0 +1,299 @@
+[7m>>>   Finalizing host directory[27m
+[7m>>>   Finalizing target directory[27m
+mkdir -p /home/avi/Buildroot-2/buildroot/output/host/etc/meson
+sed -e "s%@TARGET_CFLAGS@%'-D_LARGEFILE_SOURCE', '-D_LARGEFILE64_SOURCE', '-D_FILE_OFFSET_BITS=64', '-Os', '-g0', '-D_FORTIFY_SOURCE=1'@PKG_TARGET_CFLAGS@%g" -e "s%@TARGET_LDFLAGS@%@PKG_TARGET_LDFLAGS@%g" -e "s%@TARGET_CXXFLAGS@%'-D_LARGEFILE_SOURCE', '-D_LARGEFILE64_SOURCE', '-D_FILE_OFFSET_BITS=64', '-Os', '-g0', '-D_FORTIFY_SOURCE=1'@PKG_TARGET_CXXFLAGS@%g" -e "s%@TARGET_FCFLAGS@%'-Os', '-g0'@PKG_TARGET_FCFLAGS@%g"         -e "s%@TARGET_CC@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc%g" -e "s%@TARGET_CXX@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-g++%g" -e "s%@TARGET_AR@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc-ar%g" -e "s%@TARGET_FC@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gfortran%g" -e "s%@TARGET_STRIP@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-strip%g" -e "s%@TARGET_ARCH@%aarch64%g" -e "s%@TARGET_CPU@%cortex-a55%g" -e "s%@TARGET_ENDIAN@%little%g" -e "s%@TARGET_FCFLAGS@%%g" -e "s%@TARGET_CFLAGS@%%g" -e "s%@TARGET_LDFLAGS@%%g" -e "s%@TARGET_CXXFLAGS@%%g" -e "s%@BR2_CMAKE@%/home/avi/Buildroot-2/buildroot/output/host/bin/cmake%g" -e "s%@PKGCONF_HOST_BINARY@%/home/avi/Buildroot-2/buildroot/output/host/bin/pkgconf%g" -e "s%@HOST_DIR@%/home/avi/Buildroot-2/buildroot/output/host%g" -e "s%@STAGING_DIR@%/home/avi/Buildroot-2/buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot%g" -e "s%@STATIC@%false%g" /home/avi/Buildroot-2/buildroot/support/misc/cross-compilation.conf.in > /home/avi/Buildroot-2/buildroot/output/host/etc/meson/cross-compilation.conf.in
+sed         -e "s%@TARGET_CC@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc%g" -e "s%@TARGET_CXX@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-g++%g" -e "s%@TARGET_AR@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc-ar%g" -e "s%@TARGET_FC@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gfortran%g" -e "s%@TARGET_STRIP@%/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-strip%g" -e "s%@TARGET_ARCH@%aarch64%g" -e "s%@TARGET_CPU@%cortex-a55%g" -e "s%@TARGET_ENDIAN@%little%g" -e "s%@TARGET_FCFLAGS@%'-Os', '-g0'%g" -e "s%@TARGET_CFLAGS@%'-D_LARGEFILE_SOURCE', '-D_LARGEFILE64_SOURCE', '-D_FILE_OFFSET_BITS=64', '-Os', '-g0', '-D_FORTIFY_SOURCE=1'%g" -e "s%@TARGET_LDFLAGS@%%g" -e "s%@TARGET_CXXFLAGS@%'-D_LARGEFILE_SOURCE', '-D_LARGEFILE64_SOURCE', '-D_FILE_OFFSET_BITS=64', '-Os', '-g0', '-D_FORTIFY_SOURCE=1'%g" -e "s%@BR2_CMAKE@%/home/avi/Buildroot-2/buildroot/output/host/bin/cmake%g" -e "s%@PKGCONF_HOST_BINARY@%/home/avi/Buildroot-2/buildroot/output/host/bin/pkgconf%g" -e "s%@HOST_DIR@%/home/avi/Buildroot-2/buildroot/output/host%g" -e "s%@STAGING_DIR@%/home/avi/Buildroot-2/buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot%g" -e "s%@STATIC@%false%g" /home/avi/Buildroot-2/buildroot/support/misc/cross-compilation.conf.in > /home/avi/Buildroot-2/buildroot/output/host/etc/meson/cross-compilation.conf
+grep -qsE '^/bin/bash$' /home/avi/Buildroot-2/buildroot/output/target/etc/shells || echo "/bin/bash" >> /home/avi/Buildroot-2/buildroot/output/target/etc/shells
+/bin/sed -i -e '/# GENERIC_SERIAL$/s~^.*#~console::respawn:/sbin/getty -L  console 0 vt100 #~' /home/avi/Buildroot-2/buildroot/output/target/etc/inittab
+/bin/sed -i -e '/^#.*-o remount,rw \/$/s~^#\+~~' /home/avi/Buildroot-2/buildroot/output/target/etc/inittab
+if grep -q CONFIG_ASH=y /home/avi/Buildroot-2/buildroot/output/build/busybox-1.35.0/.config; then grep -qsE '^/bin/ash$' /home/avi/Buildroot-2/buildroot/output/target/etc/shells || echo "/bin/ash" >> /home/avi/Buildroot-2/buildroot/output/target/etc/shells; fi
+if grep -q CONFIG_HUSH=y /home/avi/Buildroot-2/buildroot/output/build/busybox-1.35.0/.config; then grep -qsE '^/bin/hush$' /home/avi/Buildroot-2/buildroot/output/target/etc/shells || echo "/bin/hush" >> /home/avi/Buildroot-2/buildroot/output/target/etc/shells; fi
+rm -f /home/avi/Buildroot-2/buildroot/output/target/usr/share/glib-2.0/schemas/*.xml /home/avi/Buildroot-2/buildroot/output/target/usr/share/glib-2.0/schemas/*.dtd
+/home/avi/Buildroot-2/buildroot/output/host/bin/glib-compile-schemas /home/avi/Buildroot-2/buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/share/glib-2.0/schemas --targetdir=/home/avi/Buildroot-2/buildroot/output/target/usr/share/glib-2.0/schemas
+No schema files found: doing nothing.
+PYTHONPATH="/home/avi/Buildroot-2/buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/python3.10/" /home/avi/Buildroot-2/buildroot/output/host/bin/python3.10 /home/avi/Buildroot-2/buildroot/output/build/python3-3.10.8/Lib/compileall.py -q -b -s /home/avi/Buildroot-2/buildroot/output/target -p / /home/avi/Buildroot-2/buildroot/output/target/usr/lib/python3.10
+find /home/avi/Buildroot-2/buildroot/output/target/usr/lib/python3.10 -name '*.py'  -print0 | xargs -0 --no-run-if-empty rm -f
+find /home/avi/Buildroot-2/buildroot/output/target/usr/lib/python3.10 -name '*.opt-1.pyc' -print0 -o -name '*.opt-2.pyc' -print0 | xargs -0 --no-run-if-empty rm -f
+mkdir -p /home/avi/Buildroot-2/buildroot/output/target/etc
+echo "avi" > /home/avi/Buildroot-2/buildroot/output/target/etc/hostname
+/bin/sed -i -e '$a \127.0.1.1\tavi' -e '/^127.0.1.1/d' /home/avi/Buildroot-2/buildroot/output/target/etc/hosts
+mkdir -p /home/avi/Buildroot-2/buildroot/output/target/etc
+echo "Welcome" > /home/avi/Buildroot-2/buildroot/output/target/etc/issue
+/bin/sed -i -e s,^root:[^:]*:,root::, /home/avi/Buildroot-2/buildroot/output/target/etc/shadow
+grep -qsE '^/bin/sh$' /home/avi/Buildroot-2/buildroot/output/target/etc/shells || echo "/bin/sh" >> /home/avi/Buildroot-2/buildroot/output/target/etc/shells
+if [ -x /home/avi/Buildroot-2/buildroot/output/target/sbin/swapon -a -x /home/avi/Buildroot-2/buildroot/output/target/sbin/swapoff ]; then /bin/sed -i -e '/^#.*\/sbin\/swap/s/^#\+[[:blank:]]*//' /home/avi/Buildroot-2/buildroot/output/target/etc/inittab; else /bin/sed -i -e '/^[^#].*\/sbin\/swap/s/^/#/' /home/avi/Buildroot-2/buildroot/output/target/etc/inittab; fi
+if test -d /home/avi/Buildroot-2/buildroot/output/target/lib/modules/`MAKEFLAGS='--no-print-directory --' /usr/bin/make -j5 HOSTCC="/usr/bin/gcc -O2 -I/home/avi/Buildroot-2/buildroot/output/host/include -L/home/avi/Buildroot-2/buildroot/output/host/lib -Wl,-rpath,/home/avi/Buildroot-2/buildroot/output/host/lib" ARCH=arm64 INSTALL_MOD_PATH=/home/avi/Buildroot-2/buildroot/output/target CROSS_COMPILE="/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-" WERROR=0 DEPMOD=/home/avi/Buildroot-2/buildroot/output/host/sbin/depmod INSTALL_MOD_STRIP=1 -C /home/avi/Buildroot-2/buildroot/output/build/linux-f0b4c3d6f86f433280662a6158e0bc1b4d83503a --no-print-directory -s kernelrelease 2>/dev/null` && grep -q "CONFIG_MODULES=y" /home/avi/Buildroot-2/buildroot/output/build/linux-f0b4c3d6f86f433280662a6158e0bc1b4d83503a/.config; then /home/avi/Buildroot-2/buildroot/output/host/sbin/depmod -a -b /home/avi/Buildroot-2/buildroot/output/target `MAKEFLAGS='--no-print-directory --' /usr/bin/make -j5 HOSTCC="/usr/bin/gcc -O2 -I/home/avi/Buildroot-2/buildroot/output/host/include -L/home/avi/Buildroot-2/buildroot/output/host/lib -Wl,-rpath,/home/avi/Buildroot-2/buildroot/output/host/lib" ARCH=arm64 INSTALL_MOD_PATH=/home/avi/Buildroot-2/buildroot/output/target CROSS_COMPILE="/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-" WERROR=0 DEPMOD=/home/avi/Buildroot-2/buildroot/output/host/sbin/depmod INSTALL_MOD_STRIP=1 -C /home/avi/Buildroot-2/buildroot/output/build/linux-f0b4c3d6f86f433280662a6158e0bc1b4d83503a --no-print-directory -s kernelrelease 2>/dev/null`; fi
+printf '%s\n' C en_US locale-archive > /home/avi/Buildroot-2/buildroot/output/build/locales.nopurge
+for dir in /home/avi/Buildroot-2/buildroot/output/target/usr/share/locale /home/avi/Buildroot-2/buildroot/output/target/usr/share/X11/locale /home/avi/Buildroot-2/buildroot/output/target/usr/lib/locale; do if [ ! -d $dir ]; then continue; fi; for langdir in $dir/*; do if [ -e "${langdir}" ]; then grep -qx "${langdir##*/}" /home/avi/Buildroot-2/buildroot/output/build/locales.nopurge || rm -rf $langdir; fi done; done
+if [ -d /home/avi/Buildroot-2/buildroot/output/target/usr/share/X11/locale ]; then for lang in C en_US; do if [ -f /home/avi/Buildroot-2/buildroot/output/target/usr/share/X11/locale/$lang/XLC_LOCALE ]; then echo "$lang/XLC_LOCALE: $lang"; fi done > /home/avi/Buildroot-2/buildroot/output/target/usr/share/X11/locale/locale.dir; fi
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/include /home/avi/Buildroot-2/buildroot/output/target/usr/share/aclocal \
+	/home/avi/Buildroot-2/buildroot/output/target/usr/lib/pkgconfig /home/avi/Buildroot-2/buildroot/output/target/usr/share/pkgconfig \
+	/home/avi/Buildroot-2/buildroot/output/target/usr/lib/cmake /home/avi/Buildroot-2/buildroot/output/target/usr/share/cmake \
+	/home/avi/Buildroot-2/buildroot/output/target/usr/lib/rpm /home/avi/Buildroot-2/buildroot/output/target/usr/doc
+find /home/avi/Buildroot-2/buildroot/output/target/usr/{lib,share}/ -name '*.cmake' -print0 | xargs -0 rm -f
+find /home/avi/Buildroot-2/buildroot/output/target/lib/ /home/avi/Buildroot-2/buildroot/output/target/usr/lib/ /home/avi/Buildroot-2/buildroot/output/target/usr/libexec/ \
+	\( -name '*.a' -o -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 rm -f
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/share/gdb
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/share/zsh
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/man /home/avi/Buildroot-2/buildroot/output/target/usr/share/man
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/info /home/avi/Buildroot-2/buildroot/output/target/usr/share/info
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/doc /home/avi/Buildroot-2/buildroot/output/target/usr/share/doc
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/usr/share/gtk-doc
+rmdir /home/avi/Buildroot-2/buildroot/output/target/usr/share 2>/dev/null || true
+rm -rf /home/avi/Buildroot-2/buildroot/output/target/lib/debug /home/avi/Buildroot-2/buildroot/output/target/usr/lib/debug
+find /home/avi/Buildroot-2/buildroot/output/target   -type f \( -perm /111 -o -name '*.so*' \) -not \( -name 'libpthread*.so*' -o -name 'ld-*.so*' -o -name '*.ko' \) -print0 | xargs -0 /home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-strip --remove-section=.comment --remove-section=.note 2>/dev/null || true
+find /home/avi/Buildroot-2/buildroot/output/target   \( -name 'ld-*.so*' -o -name 'libpthread*.so*' \) -print0 | xargs -0 -r /home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-strip --remove-section=.comment --remove-section=.note --strip-debug 2>/dev/null || true
+test -f /home/avi/Buildroot-2/buildroot/output/target/etc/ld.so.conf && \
+	{ echo "ERROR: we shouldn't have a /etc/ld.so.conf file"; exit 1; } || true
+test -d /home/avi/Buildroot-2/buildroot/output/target/etc/ld.so.conf.d && \
+	{ echo "ERROR: we shouldn't have a /etc/ld.so.conf.d directory"; exit 1; } || true
+mkdir -p /home/avi/Buildroot-2/buildroot/output/target/etc
+( \
+	echo "NAME=Buildroot"; \
+	echo "VERSION=2022.08.2"; \
+	echo "ID=buildroot"; \
+	echo "VERSION_ID=2022.08.2"; \
+	echo "PRETTY_NAME=\"Buildroot 2022.08.2\"" \
+) >  /home/avi/Buildroot-2/buildroot/output/target/usr/lib/os-release
+ln -sf ../usr/lib/os-release /home/avi/Buildroot-2/buildroot/output/target/etc
+[7m>>>   Sanitizing RPATH in target tree[27m
+PER_PACKAGE_DIR=/home/avi/Buildroot-2/buildroot/output/per-package /home/avi/Buildroot-2/buildroot/support/scripts/fix-rpath target
+[7m>>>   Copying overlay /home/avi/Buildroot/buildroot.rockchip.ext/overlays[27m
+[7m>>>   Executing post-build script /home/avi/Buildroot/buildroot.rockchip.ext/board/RK3566.cm3/post-build.sh[27m
+touch /home/avi/Buildroot-2/buildroot/output/target/usr
+[7m>>>   Generating root filesystems common tables[27m
+rm -rf /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs
+mkdir -p /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs
+printf '   	- - sudo -1 - - - -\n\n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_users_table.txt
+printf '   	/bin/busybox                     f 4755 0  0 - - - - -\n 	/usr/bin/sudo f 4755 0 0 - - - - -\n\n' > /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_devices_table.txt
+cat system/device_table.txt >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_devices_table.txt
+[7m>>>   Generating filesystem image rootfs.ext2[27m
+mkdir -p /home/avi/Buildroot-2/buildroot/output/images
+rm -rf /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2
+mkdir -p /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2
+rsync -auH --exclude=/THIS_IS_NOT_YOUR_ROOT_FILESYSTEM /home/avi/Buildroot-2/buildroot/output/target/ /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target
+echo '#!/bin/sh' > /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "set -e" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "chown -h -R 0:0 /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+PATH="/home/avi/Buildroot-2/buildroot/output/host/bin:/home/avi/Buildroot-2/buildroot/output/host/sbin:/home/avi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" /home/avi/Buildroot-2/buildroot/support/scripts/mkusers /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_users_table.txt /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "/home/avi/Buildroot-2/buildroot/output/host/bin/makedevs -d /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_devices_table.txt /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+printf '   	rm -rf /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target/usr/lib/udev/hwdb.d/ /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target/etc/udev/hwdb.d/\n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "find /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target/run/ -mindepth 1 -prune -print0 | xargs -0r rm -rf --" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "find /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target/tmp/ -mindepth 1 -prune -print0 | xargs -0r rm -rf --" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+printf '   \n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+printf '   \n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+printf '   	rm -f /home/avi/Buildroot-2/buildroot/output/images/rootfs.ext2\n	/home/avi/Buildroot-2/buildroot/output/host/sbin/mkfs.ext4 -d /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target -r 1 -N 0 -m 5 -L "rootfs" -O ^64bit /home/avi/Buildroot-2/buildroot/output/images/rootfs.ext2 "400M" || { ret=$?; echo "*** Maybe you need to increase the filesystem size (BR2_TARGET_ROOTFS_EXT2_SIZE)" 1>&2; exit $ret; }\n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+chmod a+x /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+PATH="/home/avi/Buildroot-2/buildroot/output/host/bin:/home/avi/Buildroot-2/buildroot/output/host/sbin:/home/avi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" FAKEROOTDONTTRYCHOWN=1 /home/avi/Buildroot-2/buildroot/output/host/bin/fakeroot -- /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/fakeroot
+rootdir=/home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/ext2/target
+table='/home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_devices_table.txt'
+Creating regular file /home/avi/Buildroot-2/buildroot/output/images/rootfs.ext2
+64-bit filesystem support is not enabled.  The larger fields afforded by this feature enable full-strength checksumming.  Pass -O 64bit to rectify.
+Creating filesystem with 409600 1k blocks and 102400 inodes
+Filesystem UUID: 9b0d98b4-cb62-44f8-89c9-f1fec46bb8bc
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, 221185, 401409
+
+Allocating group tables:  0/50     done                            
+Writing inode tables:  0/50     done                            
+Creating journal (8192 blocks): done
+Copying files into the device: done
+Writing superblocks and filesystem accounting information:  0/50     done
+
+ln -sf rootfs.ext2 /home/avi/Buildroot-2/buildroot/output/images/rootfs.ext4
+[7m>>>   Generating filesystem image rootfs.tar[27m
+mkdir -p /home/avi/Buildroot-2/buildroot/output/images
+rm -rf /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar
+mkdir -p /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar
+rsync -auH --exclude=/THIS_IS_NOT_YOUR_ROOT_FILESYSTEM /home/avi/Buildroot-2/buildroot/output/target/ /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target
+echo '#!/bin/sh' > /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+echo "set -e" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+echo "chown -h -R 0:0 /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+PATH="/home/avi/Buildroot-2/buildroot/output/host/bin:/home/avi/Buildroot-2/buildroot/output/host/sbin:/home/avi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" /home/avi/Buildroot-2/buildroot/support/scripts/mkusers /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_users_table.txt /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+echo "/home/avi/Buildroot-2/buildroot/output/host/bin/makedevs -d /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_devices_table.txt /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+printf '   	rm -rf /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target/usr/lib/udev/hwdb.d/ /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target/etc/udev/hwdb.d/\n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+echo "find /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target/run/ -mindepth 1 -prune -print0 | xargs -0r rm -rf --" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+echo "find /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target/tmp/ -mindepth 1 -prune -print0 | xargs -0r rm -rf --" >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+printf '   \n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+printf '   \n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+printf '   	(cd /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target; find -print0 | LC_ALL=C sort -z | tar  --pax-option=exthdr.name=%%d/PaxHeaders/%%f,atime:=0,ctime:=0 -cf /home/avi/Buildroot-2/buildroot/output/images/rootfs.tar --null --xattrs-include='\''*'\'' --no-recursion -T - --numeric-owner)\n' >> /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+chmod a+x /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+PATH="/home/avi/Buildroot-2/buildroot/output/host/bin:/home/avi/Buildroot-2/buildroot/output/host/sbin:/home/avi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" FAKEROOTDONTTRYCHOWN=1 /home/avi/Buildroot-2/buildroot/output/host/bin/fakeroot -- /home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/fakeroot
+rootdir=/home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/tar/target
+table='/home/avi/Buildroot-2/buildroot/output/build/buildroot-fs/full_devices_table.txt'
+[7m>>>   Executing post-image script /home/avi/Buildroot/buildroot.rockchip.ext/board/RK3566.cm3/post-image.sh[27m
+creating uboot.img
+/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc
+  CHK     include/config/uboot.release
+  CHK     include/generated/timestamp_autogenerated.h
+  UPD     include/generated/timestamp_autogenerated.h
+  CHK     include/generated/version_autogenerated.h
+  CHK     include/generated/generic-asm-offsets.h
+  CHK     include/generated/asm-offsets.h
+  HOSTCC  tools/mkenvimage.o
+  HOSTCC  tools/fit_image.o
+  HOSTCC  tools/image-host.o
+  HOSTCC  tools/mkimage.o
+  HOSTCC  tools/rockchip/boot_merger.o
+  HOSTCC  tools/dumpimage.o
+  HOSTCC  tools/rockchip/loaderimage.o
+  HOSTLD  tools/mkenvimage
+  CHK     include/config.h
+  CFG     u-boot.cfg
+  HOSTLD  tools/loaderimage
+  HOSTLD  tools/dumpimage
+  HOSTLD  tools/mkimage
+  HOSTLD  tools/boot_merger
+  CC      arch/arm/cpu/armv8/fwcall.o
+  LD      arch/arm/cpu/armv8/built-in.o
+  CC      common/main.o
+  CC      cmd/version.o
+  LD      common/built-in.o
+  LD      cmd/built-in.o
+  CC      drivers/usb/gadget/f_fastboot.o
+  CC      lib/smbios.o
+  CC      lib/display_options.o
+  LD      lib/built-in.o
+  LD      drivers/usb/gadget/built-in.o
+  LD      u-boot
+  OBJCOPY u-boot.srec
+  OBJCOPY u-boot-nodtb.bin
+  SYM     u-boot.sym
+start=$(/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-nm u-boot | grep __rel_dyn_start | cut -f 1 -d ' '); end=$(/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-nm u-boot | grep __rel_dyn_end | cut -f 1 -d ' '); tools/relocate-rela u-boot-nodtb.bin 0x00a00000 $start $end
+make[4]: 'arch/arm/dts/rk3566-radxa-cm3-io.dtb' is up to date.
+  COPY    u-boot.dtb
+  CAT     u-boot-dtb.bin
+  MKIMAGE u-boot.img
+  MKIMAGE u-boot-dtb.img
+  COPY    u-boot.bin
+  ALIGN   u-boot.bin
+  CC      spl/common/spl/spl.o
+  CC      spl/arch/arm/cpu/armv8/fwcall.o
+  CC      tpl/arch/arm/mach-rockchip/tpl.o
+  CC      tpl/arch/arm/cpu/armv8/fwcall.o
+  LD      spl/arch/arm/cpu/armv8/built-in.o
+  COPY    spl/u-boot-spl.dtb
+  LD      tpl/arch/arm/cpu/armv8/built-in.o
+  LD      spl/common/spl/built-in.o
+  LD      tpl/arch/arm/mach-rockchip/built-in.o
+  CC      spl/lib/display_options.o
+  LD      tpl/u-boot-tpl
+  OBJCOPY tpl/u-boot-tpl-nodtb.bin
+  COPY    tpl/u-boot-tpl.bin
+  LD      spl/lib/built-in.o
+  LD      spl/u-boot-spl
+  OBJCOPY spl/u-boot-spl-nodtb.bin
+  CAT     spl/u-boot-spl-dtb.bin
+  COPY    spl/u-boot-spl.bin
+  CFGCHK  u-boot.cfg
+/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc
+SEC=1
+pack u-boot.itb okay! Input: /home/avi/Buildroot-2/buildroot/output/images/rkbin/RKTRUST/RK3568TRUST.ini
+
+FIT description: FIT Image with ATF/OP-TEE/U-Boot
+Created:         Wed Oct 11 13:35:23 2023
+ Image 0 (uboot)
+  Description:  U-Boot(64-bit)
+  Created:      Wed Oct 11 13:35:23 2023
+  Type:         Standalone Program
+  Compression:  uncompressed
+  Data Size:    1236728 Bytes = 1207.74 KiB = 1.18 MiB
+  Architecture: AArch64
+  Load Address: 0x00a00000
+  Entry Point:  unavailable
+  Hash algo:    sha256
+  Hash value:   ebda9117671f7127832f7c70321df11e48217edc5ecc379734a0038baaf4d519
+ Image 1 (atf-1)
+  Description:  ARM Trusted Firmware
+  Created:      Wed Oct 11 13:35:23 2023
+  Type:         Firmware
+  Compression:  uncompressed
+  Data Size:    165047 Bytes = 161.18 KiB = 0.16 MiB
+  Architecture: AArch64
+  Load Address: 0x00040000
+  Hash algo:    sha256
+  Hash value:   569842593f5f627fc18aa8a73032efc228965ec28d3894f0d0967d9416d969a9
+ Image 2 (atf-2)
+  Description:  ARM Trusted Firmware
+  Created:      Wed Oct 11 13:35:23 2023
+  Type:         Firmware
+  Compression:  uncompressed
+  Data Size:    8192 Bytes = 8.00 KiB = 0.01 MiB
+  Architecture: AArch64
+  Load Address: 0xfdcc9000
+  Hash algo:    sha256
+  Hash value:   71fe14fa9d86ec19bf85de83c01b83fc0677989b17a4571d7bb6781eb2f4b7ed
+ Image 3 (atf-3)
+  Description:  ARM Trusted Firmware
+  Created:      Wed Oct 11 13:35:23 2023
+  Type:         Firmware
+  Compression:  uncompressed
+  Data Size:    7360 Bytes = 7.19 KiB = 0.01 MiB
+  Architecture: AArch64
+  Load Address: 0xfdcd0000
+  Hash algo:    sha256
+  Hash value:   a5730ca9ccd2e1e1a084de2f3412f6774d6ce770bd9ae0fedaad92ed6aacd730
+ Image 4 (optee)
+  Description:  OP-TEE
+  Created:      Wed Oct 11 13:35:23 2023
+  Type:         Firmware
+  Compression:  uncompressed
+  Data Size:    439184 Bytes = 428.89 KiB = 0.42 MiB
+  Architecture: AArch64
+  Load Address: 0x08400000
+  Hash algo:    sha256
+  Hash value:   b8cddafab0c4e20b23a2eec4c41bdb252325b69333c07f2d5a1744280468c850
+ Image 5 (fdt)
+  Description:  U-Boot dtb
+  Created:      Wed Oct 11 13:35:23 2023
+  Type:         Flat Device Tree
+  Compression:  uncompressed
+  Data Size:    19976 Bytes = 19.51 KiB = 0.02 MiB
+  Architecture: AArch64
+  Hash algo:    sha256
+  Hash value:   5eac431258d4cd3d93c68f6c41dfbd29208ad8cc8cfcbae615d1bd7afbf29267
+ Default Configuration: 'conf'
+ Configuration 0 (conf)
+  Description:  rk3566-radxa-cm3-io
+  Kernel:       unavailable
+  Firmware:     atf-1
+  FDT:          fdt
+  Loadables:    uboot
+                atf-2
+                atf-3
+                optee
+/home/avi/Buildroot-2/buildroot/output/host/bin/aarch64-buildroot-linux-gnu-gcc
+pack loader ok.(rk356x_spl_loader_v1.08.111.bin)(0.10)
+pack loader okay! Input: /home/avi/Buildroot-2/buildroot/output/images/rkbin/RKBOOT/RK3568MINIALL.ini
+/home/avi/Buildroot-2/buildroot/output/build/uboot-26d3b6963ed2d2215348f1baba8b9646ed3dc6ea
+
+Image(no-signed, version=0):  uboot.img (FIT with uboot, trust...) is ready
+Image(no-signed):  rk356x_spl_loader_v1.08.111.bin (with spl, ddr, usbplug) is ready
+pack uboot.img okay! Input: /home/avi/Buildroot-2/buildroot/output/images/rkbin/RKTRUST/RK3568TRUST.ini
+
+Platform RK3568 is build OK, with exist .config
+Wed Oct 11 13:35:24 EDT 2023
+creating idbloader.img
+Image Type:   Rockchip RK35 (SD/MMC) boot image
+Init Data Size: 55296 bytes
+Boot Data Size: 241664 bytes
+creating boot.scr
+Image Name:   flatmax load script
+Created:      Wed Oct 11 13:35:24 2023
+Image Type:   ARM Linux Script (uncompressed)
+Data Size:    1049 Bytes = 1.02 KiB = 0.00 MiB
+Load Address: 00c00000
+Entry Point:  00c00000
+Contents:
+   Image 0: 1041 Bytes = 1.02 KiB = 0.00 MiB
+
+
+compilation done
+
+
+
+write your image to the sdcard, don't forget to change OF=/dev/sdb to your sdcard drive ...
+use the following command ...
+
+OF=/dev/sdc; rootDrive=`mount | grep " / " | grep $OF`; if [ -z $rootDrive ]; then sudo umount $OF[123456789]; sudo dd if=output/images/sdcard.img of=$OF bs=10M; else echo you are trying to overwrite your root drive; fi
+

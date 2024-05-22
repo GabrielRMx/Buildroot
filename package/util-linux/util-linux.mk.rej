@@ -1,0 +1,10 @@
+--- package/util-linux/util-linux.mk
++++ package/util-linux/util-linux.mk
+@@ -196,6 +196,7 @@ HOST_UTIL_LINUX_CONF_OPTS += \
+ 	--enable-libblkid \
+ 	--enable-libmount \
+ 	--enable-libuuid \
++        --disable-raw \
+ 	--without-libmagic \
+ 	--without-ncurses \
+ 	--without-ncursesw \

@@ -1,0 +1,13 @@
+software = {
+	version = "0.1.0";
+	rootfs = {
+		rootfs: {
+			images: (
+			{
+				filename = "rootfs.ext4.gz";
+				compressed = true;
+				device = "/dev/mmcblk1p2";
+			});
+		}
+	}
+}

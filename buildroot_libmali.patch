@@ -1,0 +1,97 @@
+diff --git a/package/mali-driver/mali-driver.mk b/package/mali-driver/mali-driver.mk
+index b12bfec69d..589eccf9e9 100644
+--- a/package/mali-driver/mali-driver.mk
++++ b/package/mali-driver/mali-driver.mk
+@@ -4,7 +4,8 @@
+ #
+ ################################################################################
+ 
+-MALI_DRIVER_VERSION = a742530232d1de41b57465744a1259fa6c35049e
++#MALI_DRIVER_VERSION = a742530232d1de41b57465744a1259fa6c35049e
++MALI_DRIVER_VERSION = 52923f8e86ffb98980cd7ccf8ed8d5a653490f68
+ MALI_DRIVER_SITE = $(call github,bootlin,mali-driver,$(MALI_DRIVER_VERSION))
+ MALI_DRIVER_DEPENDENCIES = linux
+ MALI_DRIVER_LICENSE = GPL-2.0
+diff --git a/package/rockchip-mali/Config.in b/package/rockchip-mali/Config.in
+index 2a8cd786be..bc0371f7dc 100644
+--- a/package/rockchip-mali/Config.in
++++ b/package/rockchip-mali/Config.in
+@@ -11,7 +11,7 @@ config BR2_PACKAGE_ROCKCHIP_MALI
+ 	select BR2_PACKAGE_HAS_LIBGBM
+ 	select BR2_PACKAGE_LIBGBM_HAS_FEATURE_DMA_BUF
+ 	select BR2_PACKAGE_LIBDRM
+-	select BR2_PACKAGE_MALI_DRIVER if BR2_LINUX_KERNEL
++	#select BR2_PACKAGE_MALI_DRIVER if BR2_LINUX_KERNEL
+ 	help
+ 	  Install the binary user-space libraries for the ARM Mali GPU
+ 	  suitable for Rockchip platforrms. This package requires a
+diff --git a/package/rockchip-mali/rockchip-mali.mk b/package/rockchip-mali/rockchip-mali.mk
+index 6200191a73..d2f0238036 100644
+--- a/package/rockchip-mali/rockchip-mali.mk
++++ b/package/rockchip-mali/rockchip-mali.mk
+@@ -4,18 +4,21 @@
+ #
+ ################################################################################
+ 
+-ROCKCHIP_MALI_VERSION = 721653b5b3b525a4f80d15aa7e2f9df7b7e60427
+-ROCKCHIP_MALI_SITE = $(call github,rockchip-linux,libmali,$(ROCKCHIP_MALI_VERSION))
++#ROCKCHIP_MALI_VERSION = 721653b5b3b525a4f80d15aa7e2f9df7b7e60427
++ROCKCHIP_MALI_VERSION = 8f79d9779786328410d19559fb66932b7b6ae74d
++#ROCKCHIP_MALI_SITE = $(call github,rockchip-linux,libmali,$(ROCKCHIP_MALI_VERSION))
++ROCKCHIP_MALI_SITE = $(call github,radxa,libmali,$(ROCKCHIP_MALI_VERSION))
++BR_NO_CHECK_HASH_FOR += rockchip-mali-8f79d9779786328410d19559fb66932b7b6ae74d.tar.gz
+ ROCKCHIP_MALI_LICENSE = Proprietary
+ ROCKCHIP_MALI_LICENSE_FILES = END_USER_LICENCE_AGREEMENT.txt
+ ROCKCHIP_MALI_INSTALL_STAGING = YES
+ ROCKCHIP_MALI_DEPENDENCIES = host-patchelf libdrm
+ ROCKCHIP_MALI_PROVIDES = libegl libgles libgbm
+ 
+-ROCKCHIP_MALI_LIB = libmali-bifrost-g31-rxp0$(ROCKCHIP_MALI_SUFFIX).so
++ROCKCHIP_MALI_LIB = libmali-bifrost-g52-g2p0$(ROCKCHIP_MALI_SUFFIX).so
+ ROCKCHIP_MALI_PKGCONFIG_FILES = egl gbm glesv2 mali
+ ROCKCHIP_MALI_ARCH_DIR = $(if $(BR2_arm),arm-linux-gnueabihf,aarch64-linux-gnu)
+-ROCKCHIP_MALI_HEADERS = EGL FBDEV GLES GLES2 GLES3 KHR gbm.h
++ROCKCHIP_MALI_HEADERS = EGL FBDEV GLES GLES2 GLES3 KHR GBM # gbm.h
+ 
+ # We need to create:
+ # - The symlink that matches the library SONAME (libmali.so.1)
+@@ -29,7 +32,7 @@ ROCKCHIP_MALI_LIB_SYMLINKS = \
+ 	libGLESv2.so
+ 
+ ifeq ($(BR2_PACKAGE_WAYLAND),y)
+-ROCKCHIP_MALI_SUFFIX = -wayland-gbm
++ROCKCHIP_MALI_SUFFIX = -wayland
+ ROCKCHIP_MALI_PKGCONFIG_FILES += wayland-egl
+ ROCKCHIP_MALI_LIB_SYMLINKS += libwayland-egl.so
+ ROCKCHIP_MALI_DEPENDENCIES += wayland
+@@ -48,12 +51,12 @@ define ROCKCHIP_MALI_INSTALL_CMDS
+ 		$(1)/usr/lib/$(ROCKCHIP_MALI_LIB)
+ 
+ #	Generate and install the .pc files
+-	mkdir -p $(1)/usr/lib/pkgconfig
+-	$(foreach pkgconfig,$(ROCKCHIP_MALI_PKGCONFIG_FILES), \
+-		sed -e 's%@CMAKE_INSTALL_LIBDIR@%lib%;s%@CMAKE_INSTALL_INCLUDEDIR@%include%' \
+-			$(@D)/pkgconfig/$(pkgconfig).pc.cmake > \
+-			$(1)/usr/lib/pkgconfig/$(pkgconfig).pc
+-	)
++#	mkdir -p $(1)/usr/lib/pkgconfig
++#	$(foreach pkgconfig,$(ROCKCHIP_MALI_PKGCONFIG_FILES), \
++#		sed -e 's%@CMAKE_INSTALL_LIBDIR@%lib%;s%@CMAKE_INSTALL_INCLUDEDIR@%include%' \
++#			$(@D)/pkgconfig/$(pkgconfig).pc.cmake > \
++#			$(1)/usr/lib/pkgconfig/$(pkgconfig).pc
++#	)
+ 
+ #	Install all headers
+ 	$(foreach d,$(ROCKCHIP_MALI_HEADERS), \
+diff --git a/package/util-linux/util-linux.mk b/package/util-linux/util-linux.mk
+index e59ef7dadc..f85b8fc586 100644
+--- a/package/util-linux/util-linux.mk
++++ b/package/util-linux/util-linux.mk
+@@ -196,6 +196,7 @@ HOST_UTIL_LINUX_CONF_OPTS += \
+ 	--enable-libblkid \
+ 	--enable-libmount \
+ 	--enable-libuuid \
++        --disable-raw \
+ 	--without-libmagic \
+ 	--without-ncurses \
+ 	--without-ncursesw \

@@ -1,0 +1,12 @@
+--- package/mali-driver/mali-driver.mk
++++ package/mali-driver/mali-driver.mk
+@@ -4,7 +4,8 @@
+ #
+ ################################################################################
+ 
+-MALI_DRIVER_VERSION = a742530232d1de41b57465744a1259fa6c35049e
++#MALI_DRIVER_VERSION = a742530232d1de41b57465744a1259fa6c35049e
++MALI_DRIVER_VERSION = 52923f8e86ffb98980cd7ccf8ed8d5a653490f68
+ MALI_DRIVER_SITE = $(call github,bootlin,mali-driver,$(MALI_DRIVER_VERSION))
+ MALI_DRIVER_DEPENDENCIES = linux
+ MALI_DRIVER_LICENSE = GPL-2.0
