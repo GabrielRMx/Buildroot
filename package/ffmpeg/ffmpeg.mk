@@ -27,7 +27,7 @@ FFMPEG_CONF_OPTS = \
 	--enable-gpl \
 	--prefix=/usr
 
-FFMPEG_DEPENDENCIES += host-pkgconf
+FFMPEG_DEPENDENCIES += host-pkgconf rockchip-rga mpp
 
 
 # Explicitly disable everything that doesn't match for ARM
