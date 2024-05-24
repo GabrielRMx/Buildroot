@@ -1,0 +1,8 @@
+#
+# Automatically generated file; DO NOT EDIT.
+#
+
+config BR2_EXTERNAL_RK3308_PATH
+	string
+	default "/home/gabriel/BUILDROOT/buildroot.rockchip.ext"
+

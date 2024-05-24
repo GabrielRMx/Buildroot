@@ -1,0 +1,10 @@
+#
+# Automatically generated file; DO NOT EDIT.
+#
+
+menu "External options"
+
+comment "RK3308 (in /home/gabriel/BUILDROOT/buildroot.rockchip.ext)"
+source "/home/gabriel/BUILDROOT/buildroot.rockchip.ext/Config.in"
+
+endmenu
